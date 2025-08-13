@@ -461,7 +461,7 @@ footer p {
     min-width: 80px;
   }
 
-  .map-container iframe {
+  .map-container {
     height: 250px;
   }
 }
