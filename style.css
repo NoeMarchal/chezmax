@@ -161,14 +161,56 @@ section {
   }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 320px) {
+    .carousel{
+    height: 200px;
+    width: 270px;
+  }
   .carousel-item img,
   .carousel-item video {
     height: 200px;
   }
 }
-
-
+@media (min-width: 375px) {
+    .carousel{
+    height: 200px;
+    width: 310px;
+  }
+  .carousel-item img,
+  .carousel-item video {
+    height: 200px;
+  }
+}
+@media (min-width: 425px) {
+    .carousel{
+    height: 200px;
+    width: 350px;
+  }
+  .carousel-item img,
+  .carousel-item video {
+    height: 200px;
+  }
+}
+@media (min-width: 768px) {
+    .carousel{
+    height: 250px;
+    width: 620px;
+  }
+  .carousel-item img,
+  .carousel-item video {
+    height: 250px;
+  }
+}
+@media (min-width: 1024px) {
+    .carousel{
+    height: 400px;
+    width: 1000px;
+  }
+  .carousel-item img,
+  .carousel-item video {
+    height: 400px;
+  }
+}
 .menu {
   background-color: #fffaf4;
   border-radius: 20px;
