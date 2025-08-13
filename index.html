@@ -210,14 +210,19 @@
     <script>
       AOS.init();
     </script>
-    <script>
+<script>
+  const carousel = document.querySelector('.carousel');
   const carouselContainer = document.querySelector('.carousel-container');
   const prevBtn = document.querySelector('.prev');
   const nextBtn = document.querySelector('.next');
   const items = document.querySelectorAll('.carousel-item');
   
   let index = 0;
+  let startX = 0;
+  let currentX = 0;
+  let isDragging = false;
 
+  // Gestion du clic
   function updateCarousel() {
     carouselContainer.style.transform = `translateX(-${index * 100}%)`;
   }
@@ -231,7 +236,47 @@
     index = (index - 1 + items.length) % items.length;
     updateCarousel();
   });
-</script>
 
+  // Gestion du swipe tactile
+  carouselContainer.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    currentX = startX;
+    isDragging = true;
+    carouselContainer.style.transition = 'none'; // Désactive l'animation pendant le drag
+  });
+
+  carouselContainer.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const x = e.touches[0].clientX;
+    const diff = currentX - x;
+    carouselContainer.style.transform = `translateX(calc(-${index * 100}% - ${diff}px)`;
+    currentX = x;
+  });
+
+  carouselContainer.addEventListener('touchend', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    carouselContainer.style.transition = 'transform 0.3s ease-out';
+
+    const endX = e.changedTouches[0].clientX;
+    const diff = startX - endX;
+
+    // Seuil pour considérer un swipe (50px)
+    if (diff > 50) {
+      // Swipe vers la gauche = next
+      index = (index + 1) % items.length;
+    } else if (diff < -50) {
+      // Swipe vers la droite = prev
+      index = (index - 1 + items.length) % items.length;
+    }
+    
+    updateCarousel();
+  });
+
+  // Option: Empêcher le défilement de la page pendant le swipe
+  carousel.addEventListener('touchmove', (e) => {
+    if (isDragging) e.preventDefault();
+  }, { passive: false });
+</script>
   </body>
 </html>
